@@ -140,12 +140,15 @@ function flatten(...args: any[]): string[] {
 function extractCliMap(match: RegExp, options: any) {
   return Object.keys(options)
     .filter(x => match.test(x))
-    .reduce((map: { [key: string]: string }, option: keyof NexeOptions) => {
-      const key = option.split('-')[1]
-      map[key] = options[option]
-      delete options[option]
-      return map
-    }, {})
+    .reduce(
+      (map: any, option: any) => {
+        const key = option.split('-')[1]
+        map[key] = options[option]
+        delete options[option]
+        return map
+      },
+      {} as any
+    )
 }
 
 function tryResolveMainFileName(cwd: string) {
